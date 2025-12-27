@@ -8,7 +8,6 @@ import shutil
 import zipfile
 import subprocess
 import asyncio
-import threading
 from urllib.parse import unquote, urlparse
 from datetime import datetime
 
@@ -981,20 +980,6 @@ async def quality_selected(client, callback):
         f"✅ Quality selected: {quality}\n\nNow uploading…"
     )
     await callback.answer()
-
-from http.server import HTTPServer, BaseHTTPRequestHandler
-
-class HealthHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"OK")
-
-def start_health_server():
-    server = HTTPServer(("0.0.0.0", 8000), HealthHandler)
-    server.serve_forever()
-
-threading.Thread(target=start_health_server, daemon=True).start()
 
 
 if __name__ == "__main__":
