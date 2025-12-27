@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Starting aria2..."
+aria2c \
+  --enable-rpc \
+  --rpc-listen-all=false \
+  --rpc-allow-origin-all \
+  --rpc-listen-port=6800 \
+  --dir=/workspace/downloads \
+  --file-allocation=trunc \
+  --continue=true \
+  --summary-interval=0 \
+  --log-level=notice &
+
+echo "Starting bot..."
+python3 bot.py
